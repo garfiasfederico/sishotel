@@ -1,0 +1,22 @@
+{
+  "resources/css/app.scss": {
+    "file": "assets/app-BkN7vB5E.css",
+    "src": "resources/css/app.scss",
+    "isEntry": true
+  },
+  "resources/css/flowbite.css": {
+    "file": "assets/flowbite-41iuoY5v.css",
+    "src": "resources/css/flowbite.css",
+    "isEntry": true
+  },
+  "resources/css/output.css": {
+    "file": "assets/output-M592v5Yk.css",
+    "src": "resources/css/output.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CBe62xxy.js",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
