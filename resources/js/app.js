@@ -1244,19 +1244,19 @@ window.setDataReservacion = function (data) {
     $("#metodo_pago").val(data.metodo_pago);
     $("#observaciones").val(data.observaciones);
     $("#estado").val(data.estado_reservacion);
-    if(data.estado_reservacion == "ingreso")
+    if(data.estado_reservacion == "terminada")
         $("#estado").prop("disabled",true);
     $("#clientes_id").val(data.clientes_id);
     $("#cliente").val(data.clientes_id);
     $("#titulo").html("Actualiza Reservación");
     $("#btnAlmacenaReservacion").html("Actualiza Reservación");
     if(data.estado_reservacion != "terminada" && data.estado_reservacion != "confirmada" && data.estado_reservacion != "ingreso")
-        $('#btnDeleteReservacion').show('fast');
+        $('#btnDeleteReservacion').show('');
     if(data.estado_reservacion == "terminada"){
-        $("#btnAlmacenaReservacion").hide('fast');
+        $("#btnAlmacenaReservacion").hide('');
         $("#btnCancelar").html('Cerrar ventana');
     }else{
-        $("#btnAlmacenaReservacion").show('fast');
+        $("#btnAlmacenaReservacion").show('');
         $("#btnCancelar").html('Cancelar');
     }
 
@@ -1866,6 +1866,64 @@ window.showModalInfo = function(id){
 
     $("#btnShowModal").click();
 
+}
+
+window.deleteReservacion = function (){
+   var  id = $("#id").val();
+    swal({
+        title: "Está seguro de querer eliminar esta Reservación:",
+        text: "Si se elimina, los datos de la reservación serán eliminados totalmente.",
+        icon: "warning",
+        type: "warning",
+        buttons: ["Cancelar", "Si!"],
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!'
+    }).then((willDelete) => {
+        if (willDelete) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/reservaciones/destroy",
+                data: {
+                    id:id,
+                    _token: $("input[name=_token]").val()
+                },
+                beforeSend: function () {
+                    $("#btnDeleteReservacion").html(
+                        'Eliminando...');
+                }
+            }).done(function (response) {
+                if (response.result == "ok") {
+                    swal({
+                        title: "Reservación eliminada!",
+                        text: response.message,
+                        icon: "success",
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Aceptar'
+                    }).then((confirm) => {
+                        window.location.replace("/reservaciones");
+                    });
+                }
+
+            }).fail(function (data) {
+                $("#btnDeleteReservacion").html(
+                    'Eliminar Reservación');
+                swal({
+                    title: "Ocurrió un error!",
+                    text: "No se pudo eliminar la reservación correspondiente!",
+                    icon: "error",
+                    type: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Aceptar'
+                }).then((confirm) => {
+
+                });
+            })
+
+        }
+    });
 }
 /**/
 

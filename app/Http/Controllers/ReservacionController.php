@@ -285,4 +285,25 @@ class ReservacionController extends Controller
             ->first();
         return view("reservaciones.showinfo")->with("reservacion", $reservacion);
     }
+
+    public function destroy(Request $req){
+        return response()->json([
+            "result" => "error",
+            "message" => "Ocurrió un error al intentar eliminar la reservación!"
+        ],500);
+        try{
+            $id = $req->id;
+            Reservacion::find($id)->delete();
+            return response()->json([
+                "result" => "ok",
+                "message" => "La reservación ha sido eliminada satisfactoriamente!"
+            ],200);
+        }catch(Exception $ex){
+            return response()->json([
+                "result" => "error",
+                "message" => "Ocurrió un error al intentar eliminar la reservación!"
+            ],500);
+        }
+
+    }
 }

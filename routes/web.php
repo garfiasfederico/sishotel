@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservaciones/store', [ReservacionController::class, 'store'])->name('reservaciones.store');
     Route::get('/reservaciones/getinfo/{id}', [ReservacionController::class, 'getinfo'])->name('reservaciones.getinfo');
     Route::get('/reservaciones/showinfo/{id}', [ReservacionController::class, 'showinfo'])->name('reservaciones.showinfo');
+    Route::post('/reservaciones/destroy', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
 
 
 
